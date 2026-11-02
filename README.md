@@ -10,26 +10,51 @@
 
 ## 2. Deskripsi Project
 
-Kopi & Senja Kafe merupakan website sederhana berbasis PHP yang menampilkan informasi dan katalog menu kafe. Project ini dibuat untuk menerapkan dasar pemrograman PHP, pengelolaan data menu, serta penggunaan fungsi untuk membantu menampilkan dan mengolah data.
+Kafe Senja merupakan website sederhana berbasis PHP yang menampilkan informasi dan katalog menu kafe. Project ini dibuat untuk menerapkan dasar pemrograman PHP, pengelolaan data menu, serta penggunaan fungsi untuk membantu menampilkan dan mengolah data.
 
 Website ini menyajikan profil resmi kafe serta katalog menu yang dikelompokkan ke dalam lima kategori, yaitu Makanan, Snack, Dessert, Minuman Kopi, dan Minuman Non Kopi. Selain itu, website dilengkapi dengan fitur filter interaktif berdasarkan kategori serta perhitungan statistik ringkasan harga secara dinamis.
 
 ## 3. Cara Menjalankan Project di Localhost
 
-Berikut langkah-langkah untuk menjalankan project Kopi & Senja Kafe:
+Ikuti langkah-langkah berikut untuk menjalankan proyek pada server lokal:
 
-1. Pastikan server lokal, seperti Laragon atau XAMPP, sudah terinstal dan aktif.
-2. Letakkan folder project ke dalam direktori root server:
-   - Laragon: `C:\laragon\www\`
-   - XAMPP: `C:\xampp\htdocs\`
-3. Buka browser.
-4. Masukkan URL berikut pada address bar:
+### 1. Persiapan Web Server PHP
 
-   ```text
-   http://localhost/uts-pemweb-025a00230003/index.php
-   ```
+Pastikan sudah memasang lingkungan server lokal seperti Laragon atau XAMPP, atau menggunakan PHP CLI Built-in Server. Gunakan PHP versi 8.1 atau lebih baru.
 
-5. Tekan Enter untuk membuka halaman utama website Kopi & Senja Kafe.
+### 2. Mengunduh Proyek
+
+Unduh repositori proyek melalui GitHub dengan menuju ke tombol Code di kanan atas repositori lalu memilih Download ZIP atau menggunakan perintah Git melalui terminal:
+
+git clone https://github.com/sabilla/uts-pemweb-025a00230003.git
+
+
+### 3. Memindahkan Folder Proyek
+
+Ekstrak atau tempatkan folder proyek ke dalam direktori root server lokal sesuai aplikasi yang digunakan:
+
+Laragon: C:/laragon/www/uts-pemweb-025a00230003
+
+XAMPP: C:/xampp/htdocs/uts-pemweb-025a00230003
+
+### 4. Menjalankan Web Server
+
+Buka Laragon atau XAMPP, kemudian jalankan layanan web server (Apache). Pastikan status server sudah aktif (running) sebelum melanjutkan.
+
+### 5. Membuka Proyek Melalui Browser
+
+Buka peramban web (browser), kemudian akses alamat berikut:
+
+http://localhost/uts-pemweb-025a00230003/index.php
+
+
+### 6. Memeriksa Halaman Website
+
+Setelah halaman utama berhasil dibuka, navigasikan website melalui menu navigasi yang tersedia untuk memeriksa fitur dan halaman berikut:
+
+- Profil (index.php): Menampilkan informasi utama profil kafe, jam operasional, lokasi, dan deskripsi Kafe Senja.
+
+- Katalog Menu (katalog.php): Menampilkan daftar menu kuliner interaktif dilengkapi tombol filter kategori, status ketersediaan (Tersedia/Kosong), dan statistik ringkasan harga secara dinamis.
 
 ## 4. Daftar Fitur, File, dan Fungsi yang Digunakan
 
@@ -86,12 +111,15 @@ Berikut merupakan tangkapan layar hasil implementasi website Kopi & Senja Kafe.
 
 ## 7. Sumber Referensi dan Catatan Penggunaan AI
 
-### 7.1 Sumber Referensi
+### 7.1 Sumber Referensi & Aset
 
-- Dokumentasi resmi PHP: https://www.php.net/docs.php
-- Dokumentasi fungsi array PHP: https://www.php.net/manual/en/ref.array.php
+- Materi Kuliah: Modul dan acuan praktikum Tugas Pertemuan 7 Pemrograman Web (Katalog UMKM & Pemisahan Modular PHP).
+
+- Inspirasi Menu Kafe: Struktur menu dan penamaan varian terinspirasi dari menu kafe modern (seperti Kopi Kenangan / Kopken dan kafe lokal).
+
+- Aset Gambar: Foto suasana kafe dan produk menu diunduh dari platform Pinterest untuk kebutuhan visualisasi antarmuka.
 
 ### 7.2 Catatan Penggunaan AI
 
-AI digunakan sebagai alat bantu untuk memahami konsep PHP, membantu memeriksa kesalahan kode hasil akhir project tetap diperiksa dan disesuaikan kembali oleh penulis.
+AI digunakan sebagai alat bantu untuk memahami konsep PHP, membantu memeriksa kesalahan kode.hasil akhir project tetap diperiksa dan disesuaikan kembali.
 
