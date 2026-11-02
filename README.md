@@ -4,7 +4,6 @@
 
 - **Nama:** Sabilla Istiqomah
 - **NIM:** 025A00230003
-- **Kelas:** [Isi kelas]
 - **Program Studi:** Informatika
 - **Mata Kuliah:** Pemrograman Web
 
