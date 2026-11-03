@@ -1,23 +1,31 @@
 <?php
+// Mengaktifkan mode strict types untuk keamanan tipe data PHP
 declare(strict_types=1);
+
+// Memuat data menu dari file terpisah (modularisasi)
 require_once 'data.php';
+
+// Memuat fungsi-fungsi pendukung (format rupiah, perhitungan, dan keamanan output)
 require_once 'functions.php';
 
-// Menangkap parameter kategori yang diklik dari URL (jika ada)
+// Menangkap parameter kategori yang diklik dari URL (menggunakan operator null coalescing, default 'Semua')
 $kategoriAktif = $_GET['kategori'] ?? 'Semua';
 
-// Daftar kategori yang tersedia untuk tombol filter
+// Menentukan daftar kategori yang tersedia untuk tombol filter di halaman web
 $daftarKategori = ['Semua', 'Makanan', 'Snack', 'Dessert', 'Minuman Kopi', 'Minuman Non Kopi'];
 
-// Filter menu berdasarkan kategori yang dipilih
+// Proses penyaringan (filter) menu berdasarkan kategori yang sedang aktif dipilih
 if ($kategoriAktif === 'Semua') {
-    $menuDitampilkan = $daftarMenu;
+    $menuDitampilkan = $daftarMenu; // Jika 'Semua', tampilkan seluruh data menu
 } else {
+    // Jika memilih kategori tertentu, saring array menggunakan fungsi array_filter
     $menuDitampilkan = array_filter($daftarMenu, fn($item) => $item['kategori'] === $kategoriAktif);
 }
 
-// Ringkasan hitung disesuaikan dengan menu yang sedang tampil/difilter
+// Menghitung jumlah total menu yang sedang tampil di layar
 $totalMenuTampil = count($menuDitampilkan);
+
+// Menghitung rata-rata harga menu yang sedang ditampilkan (array_values digunakan untuk mereset indeks array setelah difilter)
 $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
 ?>
 <!DOCTYPE html>
@@ -26,8 +34,10 @@ $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog Menu - Kafe Senja</title>
+    <!-- Menghubungkan file stylesheet eksternal untuk desain tampilan -->
     <link rel="stylesheet" href="style.css">
     <style>
+        /* CSS internal untuk mempercantik komponen filter, card grid, dan kotak ringkasan */
         .filter-container { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; justify-content: center; }
         .filter-btn { padding: 0.5rem 1rem; border: 1px solid #cbd5e1; background: #fff; color: #334155; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
         .filter-btn:hover, .filter-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; }
@@ -35,7 +45,7 @@ $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
         .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
         .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 9px; overflow: hidden; display: flex; flex-direction: column; }
         
-        /* Perbaikan: object-fit disatukan menggunakan 'cover' dan diberi background agar rapi */
+        /* Pengaturan gambar produk agar seragam menggunakan object-fit cover */
         .card img { width: 100%; height: 160px; object-fit: cover; object-position: center; background-color: #f8fafc; padding: 5px; }
         
         .card-content { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
@@ -48,19 +58,24 @@ $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
     </style>
 </head>
 <body>
+    <!-- Bagian Header Website -->
     <header>
         <h1>☕ Kafe Senja</h1>
         <p>Daftar Menu</p>
     </header>
+
+    <!-- Bagian Navigasi Antarhalaman -->
     <nav>
         <a href="index.php">Profil Kafe</a>
         <a href="katalog.php">Daftar Menu</a>
     </nav>
+
     <main>
-        <!-- Tombol Filter Kategori -->
+        <!-- Bagian Tombol Filter Kategori -->
         <section>
             <h2>Pilih Kategori Menu</h2>
             <div class="filter-container">
+                <!-- Melakukan perulangan untuk mencetak tombol filter secara dinamis -->
                 <?php foreach ($daftarKategori as $kat): ?>
                     <a href="katalog.php?kategori=<?= urlencode($kat) ?>" 
                        class="filter-btn <?= ($kategoriAktif === $kat) ? 'active' : '' ?>">
@@ -69,36 +84,46 @@ $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
                 <?php endforeach; ?>
             </div>
 
-            <!-- Ringkasan Hasil Hitung yang Disesuaikan -->
+            <!-- Kotak Ringkasan Statistik Data -->
             <div class="summary-box">
                 <div>
+                    <!-- Menampilkan kategori yang sedang aktif (menggunakan fungsi e() untuk keamanan XSS) -->
                     <p>Kategori Aktif: <strong><?= e($kategoriAktif) ?></strong></p>
+                    <!-- Menampilkan jumlah total menu yang sedang tampil -->
                     <p>Jumlah Menu Ditampilkan: <strong><?= $totalMenuTampil ?> menu</strong></p>
                 </div>
                 <div>
+                    <!-- Menampilkan hasil perhitungan rata-rata harga yang sudah diformat ke Rupiah -->
                     <p>Rata-rata Harga: <strong><?= formatRupiah((int)$rataRataHarga) ?></strong></p>
                 </div>
             </div>
         </section>
 
-        <!-- Daftar Menu Berdasarkan Hasil Filter -->
+        <!-- Bagian Daftar Kartu Menu Berdasarkan Hasil Filter -->
         <section>
             <h2>Daftar Menu (<?= e($kategoriAktif) ?>)</h2>
+            
+            <!-- Percabangan: Cek apakah data menu kosong atau tersedia -->
             <?php if (empty($menuDitampilkan)): ?>
                 <p style="text-align: center; color: #64748b; padding: 2rem;">Belum ada menu pada kategori ini.</p>
             <?php else: ?>
                 <div class="grid-menu">
+                    <!-- Perulangan untuk menampilkan setiap item menu ke dalam bentuk card -->
                     <?php foreach ($menuDitampilkan as $menu): ?>
                         <div class="card">
+                            <!-- Menampilkan gambar menu dengan aman menggunakan e() -->
                             <img src="<?= e($menu['foto']) ?>" alt="Foto menu <?= e($menu['nama']) ?>">
                             <div class="card-content">
+                                <!-- Pengecekan status ketersediaan produk untuk badge -->
                                 <?php if ($menu['tersedia']): ?>
                                     <span class="badge badge-tersedia">Tersedia</span>
                                 <?php else: ?>
                                     <span class="badge badge-habis">Kosong</span>
                                 <?php endif; ?>
+                                
                                 <p style="font-size: 0.85rem; color: #64748b;"><?= e($menu['kategori']) ?></p>
                                 <h3 style="font-size: 1.1rem; margin: 0.3rem 0;"><?= e($menu['nama']) ?></h3>
+                                <!-- Menampilkan harga produk yang sudah diformat ke format Rupiah -->
                                 <p style="font-weight: bold; color: #0284c7; margin-top: auto;"><?= formatRupiah($menu['harga']) ?></p>
                             </div>
                         </div>
@@ -107,6 +132,8 @@ $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
             <?php endif; ?>
         </section>
     </main>
+
+    <!-- Bagian Footer Website -->
     <footer>
         <p>&copy; 2026 Kafe Senja</p>
     </footer>
