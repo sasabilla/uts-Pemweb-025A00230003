@@ -24,6 +24,12 @@ header h1 {
     margin-bottom: 0.5rem;
 }
 
+nav a.active {
+    color: #38bdf8;
+    border-bottom: 2px solid #38bdf8;
+    padding-bottom: 2px;
+}
+
 nav {
     background-color: #334155;
     padding: 1rem 2rem;

@@ -1,11 +1,6 @@
 <?php
-// Mengaktifkan mode strict types untuk keamanan tipe data PHP
 declare(strict_types=1);
-
-// Memuat data menu dari file terpisah (modularisasi)
 require_once 'data.php';
-
-// Memuat fungsi-fungsi pendukung (format rupiah, perhitungan, dan keamanan output)
 require_once 'functions.php';
 
 // Menangkap parameter kategori yang diklik dari URL (menggunakan operator null coalescing, default 'Semua')
@@ -46,14 +41,12 @@ $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
         .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 9px; overflow: hidden; display: flex; flex-direction: column; }
         
         /* Pengaturan gambar produk agar seragam menggunakan object-fit cover */
-        .card img { width: 100%; height: 160px; object-fit: cover; object-position: center; background-color: #f8fafc; padding: 5px; }
+        .card img { width: 100%; height: 160px; object-fit: cover; object-position: center; background-color: #f8fafc; }
         
         .card-content { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
-        
         .badge { display: inline-block; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: bold; border-radius: 4px; margin-bottom: 0.5rem; align-self: flex-start; }
         .badge-tersedia { background-color: #d1fae5; color: #065f46; }
         .badge-habis { background-color: #fee2e2; color: #991b1b; }
-        
         .summary-box { background: #e0f2fe; padding: 1.2rem; border-radius: 8px; margin-bottom: 1.5rem; color: #0369a1; border-left: 4px solid #0284c7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     </style>
 </head>
@@ -64,10 +57,10 @@ $rataRataHarga = hitungRataRataHarga(array_values($menuDitampilkan));
         <p>Daftar Menu</p>
     </header>
 
-    <!-- Bagian Navigasi Antarhalaman -->
+    <!-- Bagian Navigasi Antarhalaman (dengan penanda class active) -->
     <nav>
         <a href="index.php">Profil Kafe</a>
-        <a href="katalog.php">Daftar Menu</a>
+        <a href="katalog.php" class="active">Daftar Menu</a>
     </nav>
 
     <main>

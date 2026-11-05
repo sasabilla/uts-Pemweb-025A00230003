@@ -42,7 +42,7 @@ declare(strict_types=1);
     </header>
     
     <nav>
-        <a href="index.php">Profil Kafe</a>
+        <a href="index.php" class="active">Profil Kafe</a>
         <a href="katalog.php">Daftar Menu</a>
     </nav>
 
@@ -53,8 +53,9 @@ declare(strict_types=1);
             <!-- Foto / Suasana Kafe -->
             <img src="assets/suasana-kafe.jpg" alt="Suasana interior Kafe Senja yang nyaman dan estetik" class="cafe-banner">
 
+            <!-- PERBAIKAN: Menambahkan tag penutup </p> -->
             <p>Selamat datang di halaman resmi <strong>Kafe Senja</strong>. Kami menyajikan berbagai pilihan menu berkualitas
-             mulai dari hidangan utama, snack, dessert, hingga aneka racikan kopi dan non-kopi untuk menemani waktu produktif maupun bersantai Anda.
+             mulai dari hidangan utama, snack, dessert, hingga aneka racikan kopi dan non-kopi untuk menemani waktu produktif maupun bersantai Anda.</p>
             
             <div class="info-grid">
                 <div class="info-card">
